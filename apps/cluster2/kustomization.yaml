@@ -7,7 +7,7 @@ resources:
 configMapGenerator:
   - name: nginx-html
     files:
-      - nginx-config/index.html
+      - index.html
 
 generatorOptions:
   disableNameSuffixHash: false

@@ -9,9 +9,9 @@ spec:
   generators:
   - list:
       elements:
-      - cluster: cluster1
+      - cluster: kind-cluster1
         url: https://192.168.97.2
-      - cluster: cluster2
+      - cluster: kind-cluster2
         url: https://192.168.97.3
   template:
     metadata:
@@ -23,5 +23,5 @@ spec:
         targetRevision: main
         path: application_sets/templates/{{.cluster}}
       destination:
-        server: '{{.url}}'
+        name: '{{.cluster}}'
         namespace: default

@@ -23,10 +23,10 @@ spec:
             branch: main
   template:
     metadata:
-      name: '{{path.basename}}-{{path[1]}}-{{environment}}'
+      name: '{{path.basename}}-{{path[2]}}-{{environment}}'
       labels:
         environment: '{{environment}}'
-        cluster: '{{path[1]}}'
+        cluster: '{{path[2]}}'
     spec:
       project: default
       source:
@@ -35,7 +35,7 @@ spec:
         path: '{{path}}'
       destination:
         server: https://kubernetes.default.svc
-        name: '{{path[1]}}'
+        name: 'kind-{{path[2]}}'
         namespace: '{{namespace}}'
       syncPolicy:
         automated:

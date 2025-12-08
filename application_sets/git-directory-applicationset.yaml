@@ -11,8 +11,8 @@ spec:
           repoURL: https://github.com/manyb2ns/argocd.git
           revision: main
           directories:
-          - path: application_sets/templates/cluster1/*
-          - path: application_sets/templates/cluster2/*
+          - path: application_sets/templates/cluster1
+          - path: application_sets/templates/cluster2
       - list:
           elements:
           - environment: dev

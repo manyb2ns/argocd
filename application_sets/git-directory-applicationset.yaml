@@ -10,9 +10,7 @@ spec:
   - list:
       elements:
       - cluster: kind-cluster1
-        url: https://192.168.97.2
       - cluster: kind-cluster2
-        url: https://192.168.97.3
   template:
     metadata:
       name: '{{.cluster}}-nginx'

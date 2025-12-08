@@ -15,9 +15,9 @@ spec:
           - path: application_sets/templates/cluster2
       - list:
           elements:
-          - environment: dev
-            namespace: dev
-            branch: develop
+          # - environment: dev
+          #   namespace: dev
+          #   branch: develop
           - environment: prd
             namespace: prd
             branch: main

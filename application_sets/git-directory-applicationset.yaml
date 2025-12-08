@@ -1,46 +1,26 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: git-directory-apps
-  namespace: argocd
+  name: as-nginx
 spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
   generators:
-  - matrix:
-      generators:
-      - git:
-          repoURL: https://github.com/manyb2ns/argocd.git
-          revision: main
-          directories:
-          - path: application_sets/templates/cluster1
-          - path: application_sets/templates/cluster2
-      - list:
-          elements:
-          # - environment: dev
-          #   namespace: dev
-          #   branch: develop
-          - environment: prd
-            namespace: prd
-            branch: main
+  - list:
+      elements:
+      - cluster: cluster1
+        url: https://kubernetes.default.svc
+      - cluster: cluster2
+        url: https://kubernetes.default.svc
   template:
     metadata:
-      name: '{{path.basename}}-{{path[2]}}-{{environment}}'
-      labels:
-        environment: '{{environment}}'
-        cluster: '{{path[2]}}'
+      name: '{{.cluster}}-nginx'
     spec:
       project: default
       source:
         repoURL: https://github.com/manyb2ns/argocd.git
-        targetRevision: '{{branch}}'
-        path: '{{path}}'
+        targetRevision: main
+        path: application_sets/templates/{{.cluster}}
       destination:
-        server: https://kubernetes.default.svc
-        name: 'kind-{{path[2]}}'
-        namespace: '{{namespace}}'
-      syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
-        syncOptions:
-          - CreateNamespace=true
-
+        server: '{{.url}}'
+        namespace: default

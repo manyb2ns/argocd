@@ -1,22 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cluster2-apps
+  name: cluster1-apps
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/manyb2ns/argocd.git
     targetRevision: main
-    path: apps/cluster2
+    path: app_of_apps/apps/cluster1
   destination:
-    name: kind-cluster2
+    name: kind-cluster1
     namespace: default
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - PruneLast=true
-      - Replace=true

@@ -5,9 +5,9 @@ metadata:
 data:
   index.html: |
     <html>
-    <head><title>Cluster1</title></head>
+    <head><title>AoA - Cluster1</title></head>
     <body>
-      <h1>Hello from <b>Cluster1 (kind-cluster1)</b>!</h1>
+      <h1>Hello from <b>AoA - Cluster1 (kind-cluster1)</b>!</h1>
       <h1>Update Test 12041516</h1>
     </body>
     </html>

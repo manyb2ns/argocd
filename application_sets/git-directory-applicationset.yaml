@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: git-directory-apps
+  namespace: argocd
+spec:
+  generators:
+  - matrix:
+      generators:
+      - git:
+          repoURL: https://github.com/manyb2ns/argocd.git
+          revision: main
+          directories:
+          - path: application_sets/templates/cluster1/*
+          - path: application_sets/templates/cluster2/*
+      - list:
+          elements:
+          - environment: dev
+            namespace: dev
+            branch: develop
+          - environment: prd
+            namespace: prd
+            branch: main
+  template:
+    metadata:
+      name: '{{path.basename}}-{{path[1]}}-{{environment}}'
+      labels:
+        environment: '{{environment}}'
+        cluster: '{{path[1]}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/manyb2ns/argocd.git
+        targetRevision: '{{branch}}'
+        path: '{{path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        name: '{{path[1]}}'
+        namespace: '{{namespace}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+

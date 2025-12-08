@@ -11,6 +11,7 @@ spec:
     metadata:
       labels:
         app: nginx-demo
+        env: AoA
     spec:
       containers:
       - name: nginx

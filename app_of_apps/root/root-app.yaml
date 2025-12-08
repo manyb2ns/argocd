@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/manyb2ns/argocd.git
     targetRevision: main
-    path: root
+    path: app_of_apps/root
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
